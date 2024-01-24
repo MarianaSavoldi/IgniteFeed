@@ -1,4 +1,4 @@
-# IgniteFeed
+# Ignite Feed
 
 Projeto de estudo pessoal
 
