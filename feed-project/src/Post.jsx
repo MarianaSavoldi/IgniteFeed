@@ -1,5 +1,15 @@
-export function Post() {
+import PropTypes from 'prop-types';
+
+export function Post({author, content}) {
   return (
-    <p>This is my post</p>
+    <>
+      <strong>{author}</strong>
+      <p>{content}</p>
+    </>
   )
+}
+
+Post.propTypes = {
+  author: PropTypes.string,
+  content: PropTypes.string
 }
