@@ -14,5 +14,5 @@ export function Avatar({hasBorder = true, src, alt}) {
 Avatar.propTypes = {
   src: PropTypes.string,
   alt: PropTypes.string,
-  hasBorder: PropTypes.boolean,
+  hasBorder: PropTypes.bool,
 }
