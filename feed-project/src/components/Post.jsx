@@ -10,7 +10,7 @@ import { useState } from 'react';
 export function Post({author, postContent, publishedAt}) {
   const [comments, setComments] = useState(['Post bacana, hein?!']);
   const [newCommentText, setNewCommentText] = useState('')
-  //  Formatação da data usando Intl
+//  Formatação da data usando Intl
   // const publishedDateFormat = new Intl.DateTimeFormat('pt-br', {
   //   day: '2-digit',
   //   month: 'long',
@@ -26,6 +26,8 @@ export function Post({author, postContent, publishedAt}) {
     addSuffix: true,
   });
 
+  const isNewCommentEmpty = newCommentText.length === 0;
+
   const handleCreateNewComment = (e) => {
     e.preventDefault()
     setComments([...comments, newCommentText])
@@ -33,7 +35,12 @@ export function Post({author, postContent, publishedAt}) {
   };
 
   const handleNewCommentChange = (e) => {
+    e.target.setCustomValidity('')
     setNewCommentText(e.target.value)
+  }
+
+  const handleInvalidComment = (e) => {
+    e.target.setCustomValidity('Esse campo é obrigatório')
   }
 
   const deleteComment = (commentToDelete) => {
@@ -73,9 +80,16 @@ export function Post({author, postContent, publishedAt}) {
             placeholder='Deixe um comentário'
             value={newCommentText}
             onChange={(e) => handleNewCommentChange(e)}
+            onInvalid={(e) => handleInvalidComment(e)}
+            required
           />
           <footer>
-            <button type='submit'>Publicar</button>
+            <button
+              type='submit'
+              disabled={isNewCommentEmpty}
+            >
+              Publicar
+            </button>
           </footer>
         </form>
 
