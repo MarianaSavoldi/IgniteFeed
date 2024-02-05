@@ -10,7 +10,7 @@ import { useState } from 'react';
 export function Post({author, postContent, publishedAt}) {
   const [comments, setComments] = useState(['Post bacana, hein?!']);
   const [newCommentText, setNewCommentText] = useState('')
-//  Formatação da data usando Intl
+  //  Formatação da data usando Intl
   // const publishedDateFormat = new Intl.DateTimeFormat('pt-br', {
   //   day: '2-digit',
   //   month: 'long',
@@ -34,6 +34,11 @@ export function Post({author, postContent, publishedAt}) {
 
   const handleNewCommentChange = (e) => {
     setNewCommentText(e.target.value)
+  }
+
+  const deleteComment = (commentToDelete) => {
+    const newCommentsList = comments.filter(comment => comment !== commentToDelete)
+    setComments(newCommentsList)
   }
 
   return (
@@ -76,7 +81,13 @@ export function Post({author, postContent, publishedAt}) {
 
         <div className={styles.commentList}>
           {comments.map(comment => {
-            return <Comment key={comment} content={comment}/>
+            return (
+              <Comment
+                key={comment}
+                content={comment}
+                onDeleteComment={deleteComment}
+              />
+            )
           })}
         </div>
 
