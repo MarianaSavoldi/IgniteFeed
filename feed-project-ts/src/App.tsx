@@ -1,10 +1,10 @@
 import { Header } from "./components/Header";
-import {Post} from "./components/Post";
+import { Post, PostType } from "./components/Post";
 import { Sidebar } from "./components/Sidebar";
-import './global.css'
-import styles from './App.module.css'
+import './global.css';
+import styles from './App.module.css';
 
-const posts = [
+const posts: PostType[] = [
   {
     id: 1,
     author: {
@@ -22,7 +22,7 @@ const posts = [
         content: 'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀'
       },
       {
-        type:'link',
+        type: 'link',
         content: '👉 jane.design/doctorcare'
       },
     ],
@@ -45,7 +45,7 @@ const posts = [
         content: 'Acabei de subir mais um projeto no meu portifa. É um projeto que fiz no NLW Return, evento da Rocketseat. O nome do projeto é DoctorCare 🚀'
       },
       {
-        type:'link',
+        type: 'link',
         content: '👉 jane.design/doctorcare'
       },
     ],
@@ -56,24 +56,22 @@ const posts = [
 export function App() {
   return (
     <>
-      <Header/>
-      
-      <div className={styles.wrapper}>
-        <Sidebar/>
+      <Header />
+
+      <div className={ styles.wrapper }>
+        <Sidebar />
         <main>
-          {posts.map(post => {
+          { posts.map(post => {
             return (
               <Post
-                key={post.id}
-                author={post.author}
-                postContent={post.postContent}
-                publishedAt={post.publishedAt}
+                key={ post.id }
+                post={ post }
               />
-            )
-          })}
+            );
+          }) }
         </main>
       </div>
     </>
 
-  )
+  );
 }

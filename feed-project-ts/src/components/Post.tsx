@@ -16,13 +16,18 @@ interface Content {
   content: string;
 }
 
-interface PostProps {
+export interface PostType {
+  id: number;
   author: Author;
   postContent: Content[];
   publishedAt: Date;
 }
 
-export function Post({ author, postContent, publishedAt }: PostProps) {
+interface PostProps {
+  post: PostType;
+}
+
+export function Post({ post }: PostProps) {
   const [comments, setComments] = useState(['Post bacana, hein?!']);
   const [newCommentText, setNewCommentText] = useState('');
   //  Formatação da data usando Intl
@@ -34,9 +39,9 @@ export function Post({ author, postContent, publishedAt }: PostProps) {
   // }).format(publishedAt)
 
   // Formatação da data usando date-fns
-  const publishedDateFormat = format(publishedAt, "dd 'de' LLLL 'às' HH'h'mm", { locale: ptBR });
+  const publishedDateFormat = format(post.publishedAt, "dd 'de' LLLL 'às' HH'h'mm", { locale: ptBR });
 
-  const publishedDateRelativeToNow = formatDistanceToNow(publishedAt, {
+  const publishedDateRelativeToNow = formatDistanceToNow(post.publishedAt, {
     locale: ptBR,
     addSuffix: true,
   });
@@ -68,18 +73,18 @@ export function Post({ author, postContent, publishedAt }: PostProps) {
       <article className={ styles.post }>
         <header>
           <div className={ styles.author }>
-            <Avatar src={ author.avatarUrl } alt="Author's avatar" />
+            <Avatar src={ post.author.avatarUrl } alt="Author's avatar" />
             <div className={ styles.authorInfo }>
-              <strong>{ author.name }</strong>
-              <span>{ author.role }</span>
+              <strong>{ post.author.name }</strong>
+              <span>{ post.author.role }</span>
             </div>
           </div>
 
-          <time title={ publishedDateFormat } dateTime={ publishedAt.toISOString() }>{ publishedDateRelativeToNow }</time>
+          <time title={ publishedDateFormat } dateTime={ post.publishedAt.toISOString() }>{ publishedDateRelativeToNow }</time>
         </header>
 
         <div className={ styles.content }>
-          { postContent.map(line => {
+          { post.postContent.map(line => {
             if (line.type === 'paragraph') {
               return <p key={ line.content }>{ line.content }</p>;
             } else if (line.type === 'link') {
